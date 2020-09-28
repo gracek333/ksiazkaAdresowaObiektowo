@@ -25,7 +25,10 @@ class UzytkownikMenedzer
     AdresatMenedzer adresatMenedzer;
 
 public:
-    UzytkownikMenedzer(string nazwaPlikuZUzytkownikami) : plikZUzytkownikami(nazwaPlikuZUzytkownikami) {};
+    UzytkownikMenedzer(string nazwaPlikuZUzytkownikami) : plikZUzytkownikami(nazwaPlikuZUzytkownikami)
+    {
+        ustawIdOstatniegoAdresata(0);
+    };
     void wczytajUzytkownikowZPliku();
     void rejestracjaUzytkownika();
     void wypiszWszystkichUzytkownikow();
@@ -36,6 +39,7 @@ public:
     void wyloguj();
     void wyswietlWszystkichAdresatow();
     void dodajAdresata();
+    void ustawIdOstatniegoAdresata(int noweIdOstatniegoAdresata);
 };
 
 #endif

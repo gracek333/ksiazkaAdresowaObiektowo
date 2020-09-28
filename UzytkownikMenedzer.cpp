@@ -160,3 +160,9 @@ void UzytkownikMenedzer :: dodajAdresata()
 {
     adresatMenedzer.dodajAdresata(idZalogowanegoUzytkownika, idOstatniegoAdresata);
 }
+
+void UzytkownikMenedzer :: ustawIdOstatniegoAdresata(int noweIdOstatniegoAdresata)
+{
+    if (noweIdOstatniegoAdresata >= 0)
+        idOstatniegoAdresata = noweIdOstatniegoAdresata;
+}
