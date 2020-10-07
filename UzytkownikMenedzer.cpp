@@ -1,8 +1,4 @@
 #include "UzytkownikMenedzer.h"
-void UzytkownikMenedzer :: wczytajUzytkownikowZPliku()
-{
-    uzytkownicy = plikZUzytkownikami.wczytajUzytkownikowZPliku();
-}
 
 void UzytkownikMenedzer :: rejestracjaUzytkownika()
 {
@@ -75,47 +71,38 @@ void UzytkownikMenedzer :: wypiszWszystkichUzytkownikow()
 
 void UzytkownikMenedzer :: logowanieUzytkownika()
 {
-    system("cls");
-    cout << endl << "Logowanie uzytkownika: " << endl << endl;
-    Uzytkownik uzytkownik;
     string login = "", haslo = "";
 
-    cout << "Podaj login: ";
-    cin >> login;
+    cout << endl << "Podaj login: ";
+    login = MetodyPomocnicze::wczytajLinie();
 
-    for (int i = 0; i < uzytkownicy.size(); i++)
+    vector <Uzytkownik>::iterator itr = uzytkownicy.begin();
+    while (itr != uzytkownicy.end())
     {
-        if (uzytkownicy[i].pobierzLogin() == login)
+        if (itr -> pobierzLogin() == login)
         {
             for (int iloscProb = 3; iloscProb > 0; iloscProb--)
             {
                 cout << "Podaj haslo. Pozostalo prob: " << iloscProb << ": ";
-                cin >> haslo;
+                haslo = MetodyPomocnicze::wczytajLinie();
 
-                if (uzytkownicy[i].pobierzHaslo() == haslo)
+                if (itr -> pobierzHaslo() == haslo)
                 {
+                    idZalogowanegoUzytkownika = itr -> pobierzId();
                     cout << endl << "Zalogowales sie." << endl << endl;
                     system("pause");
-                    ustawIdZalogowanegoUzytkownika(uzytkownicy[i].pobierzId());
-                    adresatMenedzer.wczytajAdresatowZalogowanegoUzytkownikaZPliku(pobierzIdZalogowanegoUzytkownika(), idOstatniegoAdresata);
                     return;
                 }
             }
-            cout << "Wprowadzono 3 razy bledne haslo." << endl << endl;
+            cout << "Wprowadzono 3 razy bledne haslo." << endl;
             system("pause");
-            ustawIdZalogowanegoUzytkownika(0);
             return;
         }
+        itr++;
     }
     cout << "Nie ma uzytkownika z takim loginem" << endl << endl;
     system("pause");
-    ustawIdZalogowanegoUzytkownika(0);
-}
-
-void UzytkownikMenedzer :: ustawIdZalogowanegoUzytkownika(int noweIdZalogowanegoUzytkownika)
-{
-    if (noweIdZalogowanegoUzytkownika >= 0)
-        idZalogowanegoUzytkownika = noweIdZalogowanegoUzytkownika;
+    return;
 }
 
 void UzytkownikMenedzer :: zmianaHaslaZalogowanegoUzytkownika()
@@ -143,26 +130,15 @@ int UzytkownikMenedzer :: pobierzIdZalogowanegoUzytkownika()
     return idZalogowanegoUzytkownika;
 }
 
-void UzytkownikMenedzer :: wyloguj()
+void UzytkownikMenedzer :: wylogowanieUzytkownika()
 {
-    system("cls");
-    ustawIdZalogowanegoUzytkownika(0);
-    cout << endl << "Wylogowano!" << endl << endl;
-    system("pause");
+    idZalogowanegoUzytkownika = 0;
 }
 
-void UzytkownikMenedzer :: wyswietlWszystkichAdresatow()
+bool UzytkownikMenedzer :: czyUzytkownikJestZalogowany()
 {
-    adresatMenedzer.wyswietlWszystkichAdresatow();
-}
-
-void UzytkownikMenedzer :: dodajAdresata()
-{
-    adresatMenedzer.dodajAdresata(idZalogowanegoUzytkownika, idOstatniegoAdresata);
-}
-
-void UzytkownikMenedzer :: ustawIdOstatniegoAdresata(int noweIdOstatniegoAdresata)
-{
-    if (noweIdOstatniegoAdresata >= 0)
-        idOstatniegoAdresata = noweIdOstatniegoAdresata;
+    if (idZalogowanegoUzytkownika > 0)
+        return true;
+    else
+        return false;
 }

@@ -1,10 +1,5 @@
 #include "AdresatMenedzer.h"
 
-void AdresatMenedzer :: wczytajAdresatowZalogowanegoUzytkownikaZPliku(int idZalogowanegoUzytkownika, int &idOstatniegoAdresata)
-{
-   adresaci = plikZAdresatami.wczytajAdresatowZalogowanegoUzytkownikaZPliku(idZalogowanegoUzytkownika, idOstatniegoAdresata);
-}
-
 void AdresatMenedzer :: wyswietlWszystkichAdresatow()
 {
     system("cls");
@@ -35,48 +30,55 @@ void AdresatMenedzer :: wyswietlDaneAdresata(Adresat adresat)
     cout << "Adres:              " << adresat.pobierzAdres() << endl;
 }
 
-void AdresatMenedzer :: dodajAdresata(int idZalogowanegoUzytkownika, int &idOstatniegoAdresata)
+void AdresatMenedzer :: dodajAdresata()
 {
     Adresat adresat;
 
     system("cls");
-    cout << "Dodawanie adresata: " << endl << endl;
-    adresat = podajDaneNowegoAdresata(idZalogowanegoUzytkownika, idOstatniegoAdresata);
+    cout << " >>> DODAWANIE NOWEGO ADRESATA <<<" << endl << endl;
+    adresat = podajDaneNowegoAdresata();
 
     adresaci.push_back(adresat);
-    plikZAdresatami.dopiszAdresataDoPliku(adresat);
+    if (plikZAdresatami.dopiszAdresataDoPliku(adresat))
+    {
+        cout << "Nowy adresat zostal dodany. " << endl;
+    }
+    else
+    {
+        cout << "Blad. Nie udalo sie dodac nowego adresata. " << endl;
+    }
+    system ("pause");
 }
 
-Adresat AdresatMenedzer :: podajDaneNowegoAdresata(int idZalogowanegoUzytkownika, int &idOstatniegoAdresata)
+Adresat AdresatMenedzer :: podajDaneNowegoAdresata()
 {
     Adresat adresat;
-    string imie;
-    string nazwisko;
-    string numerTelefonu;
-    string email;
-    string adres;
+    string imie, nazwisko, numerTelefonu, email, adres;
 
-    adresat.ustawId(++idOstatniegoAdresata);
-    adresat.ustawIdUzytkownika(idZalogowanegoUzytkownika);
+    adresat.ustawId( (plikZAdresatami.pobierzIdOstatniegoAdresata() + 1) );
+    adresat.ustawIdUzytkownika(ID_ZALOGOWANEGO_UZYTKOWNIKA);
 
     cout << "Podaj imie: ";
-    cin >> imie;
-    adresat.ustawImie(MetodyPomocnicze :: zamienPierwszaLitereNaDuzaAPozostaleNaMale(imie));
+    imie = MetodyPomocnicze :: wczytajLinie();
+    imie = MetodyPomocnicze :: zamienPierwszaLitereNaDuzaAPozostaleNaMale(imie);
 
     cout << "Podaj nazwisko: ";
-    cin >> nazwisko;
-    adresat.ustawNazwisko(MetodyPomocnicze :: zamienPierwszaLitereNaDuzaAPozostaleNaMale(nazwisko));
+    nazwisko = MetodyPomocnicze :: wczytajLinie();
+    nazwisko = MetodyPomocnicze :: zamienPierwszaLitereNaDuzaAPozostaleNaMale(nazwisko);
 
     cout << "Podaj numer telefonu: ";
-    cin >> numerTelefonu;
-    adresat.ustawNumerTelefonu(numerTelefonu);
+    numerTelefonu = MetodyPomocnicze :: wczytajLinie();
 
     cout << "Podaj email: ";
-    cin >> email;
-    adresat.ustawEmail(email);
+    email = MetodyPomocnicze :: wczytajLinie();
 
     cout << "Podaj adres: ";
-    cin >> adres;
+    adres = MetodyPomocnicze :: wczytajLinie();
+
+    adresat.ustawImie(imie);
+    adresat.ustawNazwisko(nazwisko);
+    adresat.ustawNumerTelefonu(numerTelefonu);
+    adresat.ustawEmail(email);
     adresat.ustawAdres(adres);
 
     return adresat;

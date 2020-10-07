@@ -13,8 +13,10 @@ class MetodyPomocnicze
 public:
     static string konwerjsaIntNaString(int liczba);
     static int konwersjaStringNaInt(string liczba);
-    static string pobierzLiczbe(string tekst, int pozycjaZnaku);
     static string zamienPierwszaLitereNaDuzaAPozostaleNaMale(string tekst);
+    static string wczytajLinie();
+    static char wczytajZnak();
+    static int wczytajLiczbeCalkowita();
 };
 
 #endif
