@@ -71,14 +71,10 @@ void AdresatMenedzer :: usunAdresata()
             znak = MetodyPomocnicze :: wczytajZnak();
             if (znak == 't')
             {
-                //numerLiniiUsuwanegoAdresata = zwrocNumerLiniiSzukanegoAdresata(idUsuwanegoAdresata);//zamiast tych dwóch funkcji, nie wywo³ujemy tej funkcji do znajdowania numeru
-                //linii, gdy¿ mo¿emy w nastepnej funkcji po prostu nie zapisaæ linii w ktorej znajduje sie id usuwanego adresata
-                //usunWybranaLinieWPliku(numerLiniiUsuwanegoAdresata);
                 plikZAdresatami.usunWybranegoAdresataZPliku(idUsuwanegoAdresata);
                 adresaci.erase(itr);
                 cout << endl << endl << "Szukany adresat zostal USUNIETY" << endl << endl;
                 system("pause");
-                //return idUsuwanegoAdresata;
             }
             else
             {
@@ -92,7 +88,6 @@ void AdresatMenedzer :: usunAdresata()
         cout << endl << "Nie ma takiego adresata w ksiazce adresowej" << endl << endl;
         system("pause");
     }
-    //return 0;
 }
 
 Adresat AdresatMenedzer :: podajDaneNowegoAdresata()
