@@ -152,7 +152,6 @@ void PlikZAdresatami :: usunWybranegoAdresataZPliku(int idUsuwanegoAdresata)
     string wczytanaLinia = "";
     int numerWczytanejLinii = 1;
     int numerUsuwanejLinii = 0;
-    string nazwaTymczasowegoPlikuZAdresatami = "Adresaci_tymczasowo.txt";
 
     odczytywanyPlikTekstowy.open(pobierzNazwePliku().c_str(), ios::in);
     tymczasowyPlikTekstowy.open(nazwaTymczasowegoPlikuZAdresatami.c_str(), ios::out | ios::app);
@@ -232,7 +231,6 @@ void PlikZAdresatami :: zaktualizujDaneWybranegoAdresataWPliku(Adresat adresat)
     fstream odczytywanyPlikTekstowy, tymczasowyPlikTekstowy;
     string wczytanaLinia = "";
     int numerWczytanejLinii = 1;
-    string nazwaTymczasowegoPlikuZAdresatami = "Adresaci_tymczasowo.txt";
     int idEdytowanegoAdresata = adresat.pobierzId();
     string liniaZDanymiAdresata = "";
 
