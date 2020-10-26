@@ -1,5 +1,4 @@
 #include "PlikZAdresatami.h"
-//#include "PlikTekstowy.h"
 
 vector <Adresat> PlikZAdresatami :: wczytajAdresatowZalogowanegoUzytkownikaZPliku(int idZalogowanegoUzytkownika)
 {
@@ -131,15 +130,6 @@ string PlikZAdresatami :: zamienDaneAdresataNaLinieZDanymiOddzielonymiPionowymiK
     return liniaZDanymiAdresata;
 }
 
-/*bool PlikZAdresatami :: czyPlikJestPusty(fstream &plikTekstowy)
-{
-    plikTekstowy.seekg(0, ios::end);
-    if (plikTekstowy.tellg() == 0)
-        return true;
-    else
-        return false;
-}*/
-
 string PlikZAdresatami :: pobierzLiczbe(string tekst, int pozycjaZnaku)
 {
     string liczba = "";
@@ -171,8 +161,6 @@ void PlikZAdresatami :: usunWybranegoAdresataZPliku(int idUsuwanegoAdresata)
     {
         while (getline(odczytywanyPlikTekstowy, wczytanaLinia))
         {
-            // Tych przypadkow jest tyle, gdyz chcemy osiagnac taki efekt,
-            // aby na koncu pliku nie bylo pustej linii
             if (idUsuwanegoAdresata == pobierzIdAdresataZDanychOddzielonychPionowymiKreskami(wczytanaLinia))
             {
                 numerUsuwanejLinii = numerWczytanejLinii;
@@ -241,19 +229,14 @@ void PlikZAdresatami :: pobierzZPlikuIdOstatniegoAdresata()
 
 void PlikZAdresatami :: zaktualizujDaneWybranegoAdresataWPliku(Adresat adresat)
 {
-    int idEdytowanegoAdresata = adresat.pobierzId();
-
-    int numerLiniiEdytowanegoAdresata = 0;
-    string liniaZDanymiAdresata = "";
-
-    //numerLiniiEdytowanegoAdresata = zwrocNumerLiniiSzukanegoAdresata(idEdytowanegoAdresata);
-    liniaZDanymiAdresata = zamienDaneAdresataNaLinieZDanymiOddzielonymiPionowymiKreskami(adresat);
-    //edytujWybranaLinieWPliku(numerLiniiEdytowanegoAdresata, liniaZDanymiAdresata);
-
     fstream odczytywanyPlikTekstowy, tymczasowyPlikTekstowy;
     string wczytanaLinia = "";
     int numerWczytanejLinii = 1;
     string nazwaTymczasowegoPlikuZAdresatami = "Adresaci_tymczasowo.txt";
+    int idEdytowanegoAdresata = adresat.pobierzId();
+    string liniaZDanymiAdresata = "";
+
+    liniaZDanymiAdresata = zamienDaneAdresataNaLinieZDanymiOddzielonymiPionowymiKreskami(adresat);
 
     odczytywanyPlikTekstowy.open(pobierzNazwePliku().c_str(), ios::in);
     tymczasowyPlikTekstowy.open(nazwaTymczasowegoPlikuZAdresatami.c_str(), ios::out | ios::app);
@@ -262,7 +245,6 @@ void PlikZAdresatami :: zaktualizujDaneWybranegoAdresataWPliku(Adresat adresat)
     {
         while (getline(odczytywanyPlikTekstowy, wczytanaLinia))
         {
-            //if (numerWczytanejLinii == numerEdytowanejLinii)
             if (idEdytowanegoAdresata == pobierzIdAdresataZDanychOddzielonychPionowymiKreskami(wczytanaLinia))
             {
                 if (numerWczytanejLinii == 1)
