@@ -13,6 +13,7 @@ using namespace std;
 
 class PlikZAdresatami : public PlikTekstowy
 {
+    string nazwaTymczasowegoPlikuZAdresatami;
     int idOstatniegoAdresata;
 
     string zamienDaneAdresataNaLinieZDanymiOddzielonymiPionowymiKreskami(Adresat adresat);
@@ -26,7 +27,7 @@ class PlikZAdresatami : public PlikTekstowy
     void pobierzZPlikuIdOstatniegoAdresata();
 
 public:
-    PlikZAdresatami(string nazwaPliku) : PlikTekstowy(nazwaPliku) { idOstatniegoAdresata = 0; };
+    PlikZAdresatami(string nazwaPliku) : PlikTekstowy(nazwaPliku) { idOstatniegoAdresata = 0; nazwaTymczasowegoPlikuZAdresatami = "Adresaci_tymczasowo.txt"; };
 
     bool dopiszAdresataDoPliku(Adresat adresat);
     vector <Adresat> wczytajAdresatowZalogowanegoUzytkownikaZPliku(int idZalogowanegoUzytkownika);
