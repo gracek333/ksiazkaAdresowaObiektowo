@@ -20,6 +20,7 @@ class AdresatMenedzer
     Adresat podajDaneNowegoAdresata();
     void wyswietlDaneAdresata(Adresat adresat);
     int podajIdWybranegoAdresata();
+    void wyswietlIloscWyszukanychAdresatow(int iloscAdresatow);
     char wybierzOpcjeZMenuEdycja();
 
 public:
@@ -29,9 +30,11 @@ public:
         adresaci = plikZAdresatami.wczytajAdresatowZalogowanegoUzytkownikaZPliku(ID_ZALOGOWANEGO_UZYTKOWNIKA);
     };
     void dodajAdresata();
+    void wyszukajAdresatowPoImieniu();
     void usunAdresata();
     void edytujAdresata();
     void wyswietlWszystkichAdresatow();
+
 };
 
 #endif

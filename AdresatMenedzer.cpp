@@ -50,6 +50,38 @@ void AdresatMenedzer :: dodajAdresata()
     system ("pause");
 }
 
+void AdresatMenedzer :: wyszukajAdresatowPoImieniu()
+{
+    string imiePoszukiwanegoAdresata = "";
+    int iloscAdresatow = 0;
+
+    system("cls");
+    if (!adresaci.empty())
+    {
+        cout << ">>> WYSZUKIWANIE ADRESATOW O IMIENIU <<<" << endl << endl;
+
+        cout << "Wyszukaj adresatow o imieniu: ";
+        imiePoszukiwanegoAdresata = MetodyPomocnicze :: wczytajLinie();
+        imiePoszukiwanegoAdresata = MetodyPomocnicze :: zamienPierwszaLitereNaDuzaAPozostaleNaMale(imiePoszukiwanegoAdresata);
+
+        for (vector <Adresat>::iterator  itr = adresaci.begin(); itr != adresaci.end(); itr++)
+        {
+            if (itr -> pobierzImie() == imiePoszukiwanegoAdresata)
+            {
+                wyswietlDaneAdresata(*itr);
+                iloscAdresatow++;
+            }
+        }
+        wyswietlIloscWyszukanychAdresatow(iloscAdresatow);
+    }
+    else
+    {
+        cout << endl << "Ksiazka adresowa jest pusta" << endl << endl;
+    }
+    cout << endl;
+    system("pause");
+}
+
 void AdresatMenedzer :: usunAdresata()
 {
     int idUsuwanegoAdresata = 0;
@@ -197,6 +229,14 @@ void AdresatMenedzer :: edytujAdresata()
         cout << endl << "Nie ma takiego adresata." << endl << endl;
     }
     system("pause");
+}
+
+void AdresatMenedzer :: wyswietlIloscWyszukanychAdresatow(int iloscAdresatow)
+{
+    if (iloscAdresatow == 0)
+        cout << endl << "W ksiazce adresowej nie ma adresatow z tymi danymi." << endl;
+    else
+        cout << endl << "Ilosc adresatow w ksiazce adresowej wynosi: " << iloscAdresatow << endl << endl;
 }
 
 char AdresatMenedzer :: wybierzOpcjeZMenuEdycja()
