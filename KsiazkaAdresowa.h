@@ -34,6 +34,7 @@ public:
     void wylogowanieUzytkownika();
     void dodajAdresata();
     void wyszukajAdresatowPoImieniu();
+    void wyszukajAdresatowPoNazwisku();
     void usunAdresata();
     void edytujAdresata();
     void wyswietlWszystkichAdresatow();
